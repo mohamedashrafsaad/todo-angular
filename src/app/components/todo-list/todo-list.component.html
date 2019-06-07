@@ -1,0 +1,37 @@
+<section class="todoapp" *ngIf="isLoaded">
+  <header class="header">
+    <h1>Todos</h1>
+    <input
+      class="new-todo"
+      placeholder="What needs to be done?"
+      autofocus=""
+      [(ngModel)]="newTodo.item"
+      (keyup.enter)="addTodo()"
+    />
+  </header>
+  <section class="main" *ngIf="todos.length > 0">
+    <ul class="todo-list">
+      <li *ngFor="let todo of todos" [class.completed]="todo.complete">
+        <div class="view">
+          <input
+            class="toggle"
+            type="checkbox"
+            (click)="toggleTodoComplete(todo)"
+            [checked]="todo.complete"
+          />
+          <label>{{ todo.item }}</label>
+          <button class="destroy" (click)="removeTodo(todo)"></button>
+        </div>
+      </li>
+    </ul>
+  </section>
+  <footer class="footer" *ngIf="todos.length > 0">
+    <span class="todo-count"
+      ><strong>{{ todos.length }}</strong>
+      {{ todos.length == 1 ? "item" : "items" }}</span
+    >
+  </footer>
+</section>
+<div *ngIf="isLoaded && !todos.length">
+  You currently do not have any todos.
+</div>
